@@ -1,11 +1,11 @@
 import Prompt from "@Environment/Library/DOM/elements/prompt"
-import { CoreLoader, CoreLoaderError, CoreLoaderResult } from "@Core/Init/CoreLoader"
+import { CoreLoader, CoreLoaderResult, CoreLoaderWarning } from "@Core/Init/CoreLoader"
 import SettingsStorage from "../../../core/Services/Settings/SettingsStorage"
 import { $$ } from "../../../core/Services/Language/handler"
 
 CoreLoader.registerTask({
     id: "test-db-writable",
-    presence: "Test if DB is usable",
+    presence: "IDB Usability",
 
     async task() {
         let test = true
@@ -37,7 +37,7 @@ CoreLoader.registerTask({
                     },
                 ],
             })
-            return new CoreLoaderError("IDB test failed", err)
+            return new CoreLoaderWarning("IDB test failed", err)
         }
         return new CoreLoaderResult()
     },
