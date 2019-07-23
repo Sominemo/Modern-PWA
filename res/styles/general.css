@@ -160,7 +160,7 @@ nav .nav-item.active:active::after, nav .nav-item.active:hover::after, nav .nav-
     background: var(--color-nav-hover-active);
 }
 
-nav .menu-buttons .nav-item {
+nav .nav-item {
     height: calc(var(--size-nav-width) * 0.75);
 }
 
@@ -182,6 +182,7 @@ nav .mobile-gesture {
 
 nav .menu-pc-bottom {
     margin-top: auto;
+    margin-bottom: calc(var(--size-nav-width) * 0.25 / 2);
 }
 
 nav .menu-area:after {

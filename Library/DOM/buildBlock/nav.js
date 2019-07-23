@@ -5,7 +5,7 @@ import DOM from "@DOMPath/DOM/Classes/dom"
 import EaseInOutQuad from "@DOMPath/Animation/Library/Timing/easeInOutQuad"
 import FieldsContainer from "@Core/Tools/validation/fieldsContainer"
 import FieldChecker from "@Core/Tools/validation/fieldChecker"
-import Animation from "@DOMPath/Animation/Classes/Animation";
+import Animation from "@DOMPath/Animation/Classes/Animation"
 import { ContextMenuElement, ContextMenu } from "../elements"
 import { Icon } from "../object"
 
@@ -14,7 +14,13 @@ export default class Nav {
 
     static dom = []
 
+    static configBottom = []
+
+    static domBottom = []
+
     static html = null
+
+    static htmlBottom = null
 
     static mobileGesture = null
 
@@ -25,6 +31,10 @@ export default class Nav {
     static triggeredSwipe = false
 
     static get navigationList() {
+        return this.navListFunction()
+    }
+
+    static navListFunction() {
         const current = Navigation.Current
         const custom = current.navMenu || []
 
@@ -175,7 +185,14 @@ export default class Nav {
         return this.config
     }
 
-    static newItem(a) {
+    get menuItemsBottom() {
+        return this.configBottom
+    }
+
+    static newItem(a, bottom = false) {
+        const keyConfig = (bottom ? "configBottom" : "config")
+        const keyHtml = (bottom ? "htmlBottom" : "html")
+        const keyDom = (bottom ? "domBottom" : "dom")
         new FieldsContainer([
             ["name", "icon", "handler", "id"],
             {
@@ -185,41 +202,55 @@ export default class Nav {
             },
         ]).set(a)
 
-        if (this.config.some(e => e.id === a.id)) return
+        if (this[keyConfig].some(e => e.id === a.id)) return
 
-        this.config.push(a)
+        this[keyConfig].push(a)
 
-        if (this.html !== null) {
+        if (this[keyHtml] !== null) {
             const generated = this.generateElement(a)
-            this.dom.push({
+            this[keyDom].push({
                 id: a.id,
                 element: generated,
             })
-            this.html.render(generated)
+            this[keyHtml].render(generated)
         }
     }
 
-    static getById(id, index = false) {
-        return this.config[`find${index ? "Index" : ""}`](e => e.id === id)
+    static getById(id, index = false, bottom = false) {
+        return this[(bottom ? "configBottom" : "config")][(index ? "findIndex" : "find")](e => e.id === id)
     }
 
-    static removeById(id) {
+    static removeById(id, bottom = false) {
+        const keyConfig = (bottom ? "configBottom" : "config")
+        const keyHtml = (bottom ? "htmlBottom" : "html")
+        const keyDom = (bottom ? "domBottom" : "dom")
+
         const nid = this.getById(id, true)
-        delete this.config[nid]
-        delete this.dom[nid]
-        const elView = this.html.elementView
+        delete this[keyConfig][nid]
+        delete this[keyDom][nid]
+        const elView = this[keyHtml].elementView
         const htmlCh = elView.children[nid]
         elView.removeChild(htmlCh)
     }
 
     static updateHTML() {
-        if (this.html === null) return
-        this.generateElementList()
-        const eh = this.html.elementView
-        eh.innerHTML = ""
-        this.dom.forEach((el) => {
-            eh.appendChild(el.element)
-        })
+        if (this.html !== null) {
+            this.generateElementList()
+            const eh = this.html.elementView
+            eh.innerHTML = ""
+            this.dom.forEach((el) => {
+                eh.appendChild(el.element)
+            })
+        }
+
+        if (this.htmlBottom !== null) {
+            this.generateElementList()
+            const eh = this.htmlBottom.elementView
+            eh.innerHTML = ""
+            this.domBottom.forEach((el) => {
+                eh.appendChild(el.element)
+            })
+        }
     }
 
     static generateElement(i) {
@@ -264,9 +295,35 @@ export default class Nav {
         return curr
     }
 
+    static get generateElementListBottom() {
+        new FieldsContainer(["array", new FieldsContainer([
+            ["icon", "name", "handler", "id"],
+            {
+                icon: new FieldChecker({ type: "string" }),
+                handler: new FieldChecker({ type: "function" }),
+                id: new FieldChecker({ type: "string", symbols: "a-z_" }),
+            },
+        ])]).set(this.configBottom)
+
+        this.domBottom = []
+        const curr = []
+
+        this.configBottom.forEach((i) => {
+            const generated = this.generateElement(i)
+            this.domBottom.push({
+                id: i.id,
+                element: generated,
+            })
+            curr.push(generated)
+        })
+
+        return curr
+    }
+
     static highlight(e) {
         this.dom.forEach(a => a.element.classList.remove(this.activeClassName))
-        const ele = this.dom.find(em => em.id === e.id)
+        this.domBottom.forEach(a => a.element.classList.remove(this.activeClassName))
+        const ele = this.dom.find(em => em.id === e.id) || this.domBottom.find(em => em.id === e.id)
         if (ele !== undefined) {
             const el = ele.element
             el.classList.add(this.activeClassName)
@@ -288,10 +345,17 @@ export default class Nav {
     constructor() {
         const self = this
         const genDom = this.constructor.generateElementList
+        const genDomBottom = this.constructor.generateElementListBottom
         this.constructor.html = new DOM({
             new: "div",
             class: "menu-buttons",
             content: genDom,
+        })
+
+        this.constructor.htmlBottom = new DOM({
+            new: "div",
+            class: "menu-pc-bottom",
+            content: genDomBottom,
         })
 
         this.constructor.mobileGesture = new DOM({
@@ -347,15 +411,7 @@ export default class Nav {
 
                     ],
                 }),
-                new DOM({
-                    new: "div",
-                    class: "menu-pc-bottom",
-                    content: new DOM({
-                        new: "div",
-                        class: "nav-item",
-                        content: new Icon("account_circle"),
-                    }),
-                }),
+                this.constructor.htmlBottom,
             ],
         })
     }
