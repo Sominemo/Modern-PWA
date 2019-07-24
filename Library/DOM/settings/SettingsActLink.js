@@ -14,7 +14,7 @@ export default class SettingsActLink {
                 content: new TwoSidesWrapper(signElement, new Icon((custom || "chevron_right"), { marginLeft: "15px" })),
                 handler: (typeof act === "function"
                     ? act
-                    : () => { Navigation.hash = { module: "settings", params: act } }),
+                    : () => { Navigation.url = { module: "settings", params: act } }),
                 object: [
                     {
                         name: "changeSign",

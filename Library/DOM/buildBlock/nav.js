@@ -46,14 +46,14 @@ export default class Nav {
                 // TODO: Localizations
                 title: $$("settings"),
                 handler() {
-                    Navigation.hash = { module: "settings" }
+                    Navigation.url = { module: "settings" }
                 },
             },
             {
                 icon: "info",
                 title: $$("@about/app"),
                 handler() {
-                    Navigation.hash = { module: "about" }
+                    Navigation.url = { module: "about" }
                 },
             },
         ]
