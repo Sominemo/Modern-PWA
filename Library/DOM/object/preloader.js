@@ -7,9 +7,15 @@ export default class Preloader {
     } = {}) {
         main = main || Design.getVar("color-main", true)
         accent = accent || Design.getVar("color-accent", true)
-        let svg = require("@Resources/images/vector/preloader.svg")
+        let { svg } = this.constructor
         svg = svg.replace(/\$mainColor\$/g, main).replace(/\$accentColor\$/g, accent)
 
         return new SVG(svg, { width: (typeof size === "number" ? `${size}px` : size), ...style })
     }
+
+    static _getSVG() { return require("@Resources/images/vector/preloader.svg") }
+
+    static get svg() { return this._getSVG() }
+
+    static set svg(s) { this._getSVG = s }
 }
