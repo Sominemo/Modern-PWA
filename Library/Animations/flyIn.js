@@ -16,7 +16,7 @@ export default class FlyIn {
         return new Animation({
             duration,
             painter(time) {
-                this.elementParse.native.style.transform = `translate${dir[0]}(${dir[1] * 100 + dir[2] * 100 * time}v${dir[3]})`
+                this.style({ transform: `translate${dir[0]}(${dir[1] * 100 + dir[2] * 100 * time}v${dir[3]})` })
             },
             timingFunc: timing,
         })
