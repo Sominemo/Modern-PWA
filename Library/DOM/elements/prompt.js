@@ -7,8 +7,8 @@ import { Button } from "../object/input"
 import Popup from "./popup"
 
 export default function Prompt({
-    title = "",
-    text = "",
+    title = null,
+    text = null,
     buttons = [],
     popupSettings = {},
 }) {
@@ -16,8 +16,8 @@ export default function Prompt({
     const ca = []
     let pop
 
-    ca.push(new Title(title, 2))
-    ca.push(new CardContent(text))
+    if (title !== null) ca.push(new Title(title, 2))
+    if (text !== null) ca.push(new CardContent(text))
     if (buttons.length > 0) {
         ca.push(new DOM({
             new: "div",
