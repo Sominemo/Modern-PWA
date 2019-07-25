@@ -236,21 +236,22 @@ export default class Nav {
     static updateHTML() {
         if (this.html !== null) {
             this.generateElementList()
-            const eh = this.html.elementView
-            eh.innerHTML = ""
+            const eh = this.html
+            eh.clear()
             this.dom.forEach((el) => {
-                eh.appendChild(el.element)
+                eh.render(el.element)
             })
         }
 
         if (this.htmlBottom !== null) {
-            this.generateElementList()
-            const eh = this.htmlBottom.elementView
-            eh.innerHTML = ""
+            this.generateElementListBottom()
+            const eh = this.htmlBottom
+            eh.clear()
             this.domBottom.forEach((el) => {
-                eh.appendChild(el.element)
+                eh.render(el.element)
             })
         }
+        this.highlight({ id: Navigation.parse.module })
     }
 
     static generateElement(i) {
@@ -270,7 +271,7 @@ export default class Nav {
         })
     }
 
-    static get generateElementList() {
+    static generateElementList() {
         new FieldsContainer(["array", new FieldsContainer([
             ["icon", "name", "handler", "id"],
             {
@@ -295,7 +296,7 @@ export default class Nav {
         return curr
     }
 
-    static get generateElementListBottom() {
+    static generateElementListBottom() {
         new FieldsContainer(["array", new FieldsContainer([
             ["icon", "name", "handler", "id"],
             {
@@ -344,8 +345,8 @@ export default class Nav {
 
     constructor() {
         const self = this
-        const genDom = this.constructor.generateElementList
-        const genDomBottom = this.constructor.generateElementListBottom
+        const genDom = this.constructor.generateElementList()
+        const genDomBottom = this.constructor.generateElementListBottom()
         this.constructor.html = new DOM({
             new: "div",
             class: "menu-buttons",
