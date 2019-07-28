@@ -4,7 +4,7 @@ import DOM from "@DOMPath/DOM/Classes/dom"
 import MDRadio from "./md-radio"
 
 export default class RadioLabel {
-    constructor(data, style = [], bigCard = false) {
+    constructor(data, style = [], bigCard = false, noBorders = false) {
         new FieldsContainer(["array",
             new FieldsContainer([
                 ["handler", "content"],
@@ -34,6 +34,7 @@ export default class RadioLabel {
                     }),
                 ],
             }),
+            ...(noBorders ? { style: { borderBottom: 0 } } : {}),
             events: [
                 {
                     event: "click",

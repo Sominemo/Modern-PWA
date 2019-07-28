@@ -4,9 +4,10 @@ export default class ContentEditable {
     constructor({
         placeholder = "", change = (value, element) => { }, content = "", type = "", contentType = "text",
         editable = true, onRendered = () => { }, style = {}, species = [], contentStyle = {},
-        placeholderStyle = {}, transformString = true, onKey = () => {},
+        placeholderStyle = {}, transformString = true, onKey = () => {}, set = {},
     }) {
         let value = content
+        let curValue = value
         let ip
         let contentArray
 
@@ -39,6 +40,12 @@ export default class ContentEditable {
                     name: "currentValue",
                     get() {
                         return value
+                    },
+                },
+                {
+                    name: "actualValue",
+                    get() {
+                        return curValue
                     },
                 },
             ],
@@ -79,7 +86,10 @@ export default class ContentEditable {
                 },
                 {
                     event: "keypress",
-                    handler: onKey,
+                    handler(ev, el) {
+                        curValue = el.elementParse.native.innerText
+                        onKey(value, ev, el)
+                    },
                 },
             ],
             ...methods,
@@ -101,6 +111,7 @@ export default class ContentEditable {
             ],
             style,
             ...methods,
+            set,
         })
 
 

@@ -11,12 +11,18 @@ export default function Prompt({
     text = null,
     buttons = [],
     popupSettings = {},
+    centredTitle = false,
 }) {
     const o = WindowManager.newOverlay()
     const ca = []
     let pop
 
-    if (title !== null) ca.push(new Title(title, 2))
+
+    if (title !== null) {
+        let titleObject = new Title(title, 2)
+        if (centredTitle) titleObject = new Align(titleObject, ["row", "center"])
+        ca.push(titleObject)
+    }
     if (text !== null) ca.push(new CardContent(text))
     if (buttons.length > 0) {
         ca.push(new DOM({
