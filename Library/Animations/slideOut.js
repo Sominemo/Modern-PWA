@@ -1,7 +1,7 @@
 import Animation from "@DOMPath/Animation/Classes/Animation"
 
 export default class SlideOut {
-    constructor({ renderAwait = false, ...params }) {
+    constructor({ renderAwait = false, ...params } = {}) {
         let original
         let padding = [0, 0, 0, 0]
         let margin = [0, 0, 0, 0]

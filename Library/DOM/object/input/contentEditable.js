@@ -48,6 +48,12 @@ export default class ContentEditable {
                         return curValue
                     },
                 },
+                {
+                    name: "focus",
+                    handler() {
+                        return ip.elementParse.native.focus()
+                    },
+                },
             ],
         }
 

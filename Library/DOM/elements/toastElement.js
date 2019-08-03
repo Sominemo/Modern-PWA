@@ -17,6 +17,8 @@ export default class ToastElement {
             oFunc(...p)
         }
 
+        let popToast
+
         const toast = new DOM({
             new: "md-toast",
             style: {
@@ -28,8 +30,7 @@ export default class ToastElement {
                         if (duration <= 0) return
                         const check = () => {
                             if (!mouseOn) {
-                                new FlyOut({ direction: "top", duration: 500, timing: EaseOutQuad })
-                                    .apply(e).then(control.pop)
+                                popToast()
                             } else setTimeout(check, duration)
                         }
                         setTimeout(check, duration)
@@ -40,18 +41,16 @@ export default class ToastElement {
                     event: "click",
                     handler(me, el) {
                         if (typeof click !== "function") return
-                        new FlyOut({ direction: "top", duration: 500, timing: EaseOutQuad })
-                            .apply(el).then(control.pop)
                         click()
+                        popToast()
                     },
                 },
                 {
                     event: "contextmenu",
                     handler(me, el) {
                         if (swipeMode) return
-                        new FlyOut({ direction: "top", duration: 500, timing: EaseOutQuad })
-                            .apply(el).then(control.pop)
                         me.preventDefault()
+                        popToast()
                     },
                 },
                 {
@@ -83,8 +82,7 @@ export default class ToastElement {
                             ...buttons.map(b => new Button({
                                 handler(m) {
                                     m.stopPropagation()
-                                    new FlyOut({ direction: "top", duration: 500, timing: EaseOutQuad })
-                                        .apply(toast).then(control.pop)
+                                    popToast()
                                     return b.handler.bind(this)()
                                 },
                                 content: b.content,
@@ -110,10 +108,24 @@ export default class ToastElement {
             }),
         })
 
+        let popped = false
+        popToast = () => {
+            if (popped) return
+            new FlyOut({ direction: "top", duration: 500, timing: EaseOutQuad })
+                .apply(toast).then(control.pop)
+            popped = true
+        }
+
         return new DOM({
             new: "div",
             class: ["md-toast-container"],
             content: toast,
+            objectProperty: [
+                {
+                    name: "pop",
+                    handler: popToast,
+                },
+            ],
             events: [
                 {
                     event: "touchstart",
@@ -145,8 +157,7 @@ export default class ToastElement {
                             if (opacity < 0.6) {
                                 this.classList.add("transanim")
                                 this.style.opacity = 0
-                                new FlyOut({ direction: "top", duration: 200, timing: EaseOutQuad })
-                                    .apply(el).then(control.pop)
+                                popToast()
                             } else {
                                 opacity = 1
                                 this.style.opacity = ""

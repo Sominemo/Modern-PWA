@@ -5,7 +5,8 @@ import { Card } from "../object/card"
 
 export default class Popup {
     constructor(content, {
-        control = {}, fullWidth = false, fullHeight = false, noClose = false, fixedContext = false,
+        control = {}, fullWidth = false, fullHeight = false,
+        noClose = false, fixedContext = false, cardStyle = {},
     } = {}) {
         let escapeListener
 
@@ -36,6 +37,7 @@ export default class Popup {
         }), {
             style: {
                 ...(fullHeight ? { height: "100%" } : {}),
+                ...cardStyle,
             },
         })
 
