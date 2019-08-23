@@ -7,13 +7,19 @@ export default class Popup {
     constructor(content, {
         control = {}, fullWidth = false, fullHeight = false,
         noClose = false, fixedContext = false, cardStyle = {},
+        cardSet = {}, cardClass = [],
     } = {}) {
         let escapeListener
 
-        const pop = () => {
-            document.removeEventListener("keyup", escapeListener)
-            if (fixedContext) window.removeEventListener("appNavigation", pop)
-            new FadeOut({ duration: 200 }).apply(control.element).then(() => control.pop())
+        const pop = async () => {
+            try {
+                document.removeEventListener("keyup", escapeListener)
+                if (fixedContext) window.removeEventListener("appNavigation", pop)
+                await new FadeOut({ duration: 200 }).apply(control.element)
+                control.pop()
+            } catch (e) {
+                console.log(e)
+            }
         }
 
         escapeListener = (evt) => {
@@ -39,7 +45,8 @@ export default class Popup {
                 ...(fullHeight ? { height: "100%" } : {}),
                 ...cardStyle,
             },
-        })
+            type: cardClass,
+        }, cardSet)
 
         document.addEventListener("keyup", escapeListener)
         if (fixedContext) window.addEventListener("appNavigation", pop)

@@ -3,7 +3,6 @@ import FieldsContainer from "@Core/Tools/validation/fieldsContainer"
 import FieldChecker from "@Core/Tools/validation/fieldChecker"
 import DOM from "@DOMPath/DOM/Classes/dom"
 import WindowManager from "@Core/Services/SimpleWindowManager"
-import FadeOut from "@Environment/Library/Animations/fadeOut"
 import Design from "@Core/Services/design"
 import ContentEditable from "./contentEditable"
 import RadioLabel from "./radioLabel"
@@ -18,6 +17,7 @@ export default class SelectInput {
         defaultOption = -1,
         change = (option) => { },
         emptySelection = true,
+        autoClose = true,
     }) {
         new FieldsContainer(["array", new FieldsContainer([
             ["content", "value"],
@@ -29,35 +29,36 @@ export default class SelectInput {
 
         let selection = (defaultOption >= 0 ? options[defaultOption] : { content: "", value: null })
 
-        const methods = {}
-
         const input = new ContentEditable({
             placeholder,
             editable: false,
-            methods,
             content: selection.content,
         })
+
+        let p
 
         const radioOptions = options.map((option, index) => ({
             content: option.content,
             handler(s) {
                 if (!s) return
                 selection = option
-                methods.edit(option.content)
+                input.emitEvent("editValue", { content: option.content })
                 change(option)
+                p.close()
             },
             selected: index === defaultOption,
         }))
 
         if (emptySelection) {
             radioOptions.unshift({
-                content: new DOM({ new: "span", content: "Select option", style: { color: Design.getVar("color-generic-light-b") } }),
+                content: new DOM({ new: "span", content: String(emptySelection), style: { color: Design.getVar("color-generic-light-b") } }),
                 handler(s) {
                     if (!s) return
                     const ne = { content: "", value: null }
                     selection = ne
-                    methods.edit("")
+                    input.emitEvent("editValue", { content: "" })
                     change(ne)
+                    p.close()
                 },
                 selected: defaultOption < 0,
             })
@@ -80,19 +81,12 @@ export default class SelectInput {
                     event: "click",
                     handler() {
                         const o = WindowManager.newOverlay()
-
-                        o.append(new Popup(selector, {
+                        p = new Popup(selector, {
                             control: o,
                             fullWidth: true,
-                            events: [
-                                {
-                                    event: "click",
-                                    handler() {
-                                        new FadeOut({ duration: 200 }).apply(o.element).then(o.pop)
-                                    },
-                                },
-                            ],
-                        }))
+                        })
+
+                        o.append(p)
                     },
                 },
             ],

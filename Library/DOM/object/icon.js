@@ -6,6 +6,10 @@ export default class Icon {
             new: "md-icon",
             style,
             class: ["notranslate"],
+            attributes: {
+                ariaHidden: true,
+                role: "img",
+            },
             content: (name === null
                 ? new DOM({
                     new: "div",

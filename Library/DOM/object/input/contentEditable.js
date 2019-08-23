@@ -5,6 +5,7 @@ export default class ContentEditable {
         placeholder = "", change = (value, element) => { }, content = "", type = "", contentType = "text",
         editable = true, onRendered = () => { }, style = {}, species = [], contentStyle = {},
         placeholderStyle = {}, transformString = true, onKey = () => {}, set = {},
+        focusOnRender = false, onEnter = () => {},
     }) {
         let value = content
         let curValue = value
@@ -95,11 +96,19 @@ export default class ContentEditable {
                     handler(ev, el) {
                         curValue = el.elementParse.native.innerText
                         onKey(value, ev, el)
+                        if (ev.keyCode === 13) onEnter(value, ev, el)
                     },
                 },
             ],
             ...methods,
-            onRendered,
+            onRendered() {
+                onRendered()
+                if (focusOnRender) {
+                    setTimeout(() => {
+                        ip.elementParse.native.focus()
+                    }, 0)
+                }
+            },
         })
 
         const ph = new DOM({
