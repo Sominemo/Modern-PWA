@@ -33,9 +33,12 @@ export default async function DynamicListPopup(
                     {
                         event: "click",
                         async handler() {
-                            new FadeOut({ duration: 200 }).apply(o.element).then(() => o.pop())
                             const pass = (typeof e.value === "function" ? await e.value() : e.value)
-                            onSelect(pass)
+                            const preventClose = await onSelect(pass)
+                            if (!preventClose) {
+                                new FadeOut({ duration: 200 })
+                                    .apply(o.element).then(() => o.pop())
+                            }
                         },
                     },
                     {
@@ -101,7 +104,7 @@ export default async function DynamicListPopup(
     searchInput = new TextInput({
         set: {
             placeholder,
-            maxLength: inputMax,
+            ...(inputMax > 0 ? { maxLength: inputMax } : {}),
         },
         style: {
             padding: "10px",

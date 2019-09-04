@@ -44,24 +44,30 @@ export default class BigNumberInput {
                         },
                         {
                             event: "input",
-                            handler(ev, el) {
+                            async handler(ev, el) {
                                 const elm = el.elementParse.native
 
                                 elm.value = elm.value.replace(/^0+/, "")
 
                                 if (elm.value === "") elm.value = min
 
-                                if (min !== null && parseInt(elm.value, 10) < min) {
-                                    elm.value = min
+                                if (min !== null
+                                    && (typeof min === "function"
+                                        ? parseInt(elm.value, 10) < await min()
+                                        : parseInt(elm.value, 10) < min)) {
+                                    elm.value = (typeof min === "function" ? await min() : min)
                                 }
-                                if (max !== null && parseInt(elm.value, 10) > max) {
-                                    elm.value = max
+                                if (max !== null
+                                    && (typeof max === "function"
+                                        ? parseInt(elm.value, 10) > await max()
+                                        : parseInt(elm.value, 10) > max)) {
+                                    elm.value = (typeof max === "function" ? await max() : max)
                                 }
 
                                 if (unitHint !== null) {
                                     unitHint.clear(new DOM({
                                         type: "text",
-                                        new: (typeof units === "function" ? units(parseInt(elm.value, 10)) : units),
+                                        new: (typeof units === "function" ? units(parseInt(elm.value, 10)) : (units !== null ? units : "")),
                                     }))
                                 }
                             },
@@ -79,7 +85,7 @@ export default class BigNumberInput {
 
                 acceptHandler = () => {
                     const newValue = parseInt(numberInput.elementParse.native.value, 10)
-                    const newUnits = (typeof units === "function" ? units(newValue) : units)
+                    const newUnits = (typeof units === "function" ? units(newValue) : (units !== null ? units : ""))
                     input.emitEvent("editValue", { content: `${newValue} ${newUnits}` })
                     if (typeof onchange === "function") onchange(newValue)
                     context().emitEvent("contextMenuClose")
@@ -88,7 +94,7 @@ export default class BigNumberInput {
                 if (units !== null) {
                     unitHint = new DOM({
                         new: "div",
-                        content: (typeof units === "function" ? units(parseInt(input.currentValue, 10)) : units),
+                        content: (typeof units === "function" ? units(parseInt(input.currentValue, 10)) : (units !== null ? units : "")),
                         style: {
                             color: Design.getVar("color-accent-light"),
                             textAlign: "center",
@@ -114,7 +120,7 @@ export default class BigNumberInput {
                 return new CardContent(new Align(c, ["center", "column"]), { whiteSpace: "nowrap" })
             },
             disableResizeHide: true,
-            defaults: `${content} ${(typeof units === "function" ? units(parseInt(content, 10)) : units)}`,
+            defaults: `${content} ${(typeof units === "function" ? units(content) : (units !== null ? units : ""))}`,
             placeholder,
             iconName,
             style: {
