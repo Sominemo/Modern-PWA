@@ -54,6 +54,9 @@ export default class Popup {
         return new DOM({
             new: "div",
             onRender(p, e) { new FadeIn({ duration: 200 }).apply(e) },
+            style: {
+                opacity: "0",
+            },
             class: ["popup-main-scaffold"],
             objectProperty: [
                 {

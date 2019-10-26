@@ -23,7 +23,7 @@ export default class CardList {
             if (e.content === null) return
             const params = { new: "div" }
             params.class = ["card-list-item", ...("classes" in e ? e.classes : [])]
-            if ("content" in e) params.content = (typeof e.content === "string" || forceWrapper ? new CardContent(e.content) : e.content)
+            if ("content" in e) params.content = (typeof e.content === "string" || (forceWrapper && !e.disableWrapper) ? new CardContent(e.content) : e.content)
             if ("userSelect" in e && !e.userSelect) {
                 params.attributes = []
                 params.attributes.push({

@@ -369,9 +369,14 @@ md-button:active:before, md-button:focus:before {
     position: relative;
 }
 
+_::-webkit-full-page-media, _:future, :root .popup-limit-container .card {
+    display: flex;
+  }
+
 .popup-limit-container .card>.card-scroll-container {
     max-height: 100%;
     overflow: auto;
+    width: 100%;
 }
 
 .popup-under-limit-position {
@@ -606,8 +611,9 @@ md-toast md-button.transparentMDButton>md-ripple-effect {
 }
 
 .bottom-buttons {
+    position: -webkit-sticky;
     position: sticky;
-    bottom: 0px;
+    bottom: -1px;
     background: var(--color-bottom-buttons-bg);
     border-top: solid 1.5px var(--color-card-border);
     z-index: 2;
@@ -628,6 +634,7 @@ md-input {
     box-shadow: 0px 2.5px 0px 0px var(--color-input-local);
     margin: 5px;
     transition: all .2s;
+    width: 100%;
 }
 
 md-input>md-input-content {
