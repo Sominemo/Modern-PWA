@@ -13,7 +13,7 @@ export default class IconSide {
         })]
 
         const iconEl = new Icon(icon, {
-            margin: (after ? "0 0 0 0.2em" : "0 0.2em 0 0"),
+            margin: (after ? "0 0 0 0.5em" : "0 0.5em 0 0"),
             ...(normalIcon ? {} : { fontSize: "1.5em" }),
             ...style,
         })

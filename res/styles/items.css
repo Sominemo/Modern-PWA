@@ -406,6 +406,15 @@ _::-webkit-full-page-media, _:future, :root .popup-limit-container .card {
     justify-content: flex-end;
 }
 
+.ready-flex-align.left {
+    justify-content: flex-start;
+    text-align: initial;
+}
+
+.ready-flex-align.middle {
+    align-items: center;
+}
+
 .columns-container {
     display: flex;
 }
