@@ -1,6 +1,7 @@
 @media (max-width: 500px) {
     :root {
         --nav-bottom: 1;
+        --size-nav-height: var(--size-nav-width);
     }
     @media all and (display-mode: standalone) {
         body {

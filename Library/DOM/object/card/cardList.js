@@ -4,7 +4,7 @@ import DOM from "@DOMPath/DOM/Classes/dom"
 import CardContent from "./cardContent"
 
 export default class CardList {
-    constructor(content, forceWrapper = false) {
+    constructor(content, forceWrapper = false, other = {}) {
         new FieldsContainer([
             "array",
             new FieldsContainer([
@@ -54,6 +54,7 @@ export default class CardList {
             new: "div",
             class: ["card-list-container"],
             content: elements,
+            ...other,
         })
     }
 }
