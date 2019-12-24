@@ -4,8 +4,8 @@ export default class ContentEditable {
     constructor({
         placeholder = "", change = (value, element) => { }, content = "", type = "", contentType = "text",
         editable = true, onRendered = () => { }, style = {}, species = [], contentStyle = {},
-        placeholderStyle = {}, transformString = true, onKey = () => {}, set = {},
-        focusOnRender = false, onEnter = () => {},
+        placeholderStyle = {}, transformString = true, onKey = (value, element, event) => {},
+        set = {}, focusOnRender = false, onEnter = () => {},
     }) {
         let value = content
         let curValue = value
@@ -92,11 +92,17 @@ export default class ContentEditable {
                     },
                 },
                 {
+                    event: "keyup",
+                    handler(ev, el) {
+                        curValue = el.elementParse.native.innerText
+                        onKey(curValue, ev, el)
+                    },
+                },
+                {
                     event: "keypress",
                     handler(ev, el) {
                         curValue = el.elementParse.native.innerText
-                        onKey(value, ev, el)
-                        if (ev.keyCode === 13) onEnter(value, ev, el)
+                        if (ev.keyCode === 13) onEnter(curValue, ev, el)
                     },
                 },
             ],
