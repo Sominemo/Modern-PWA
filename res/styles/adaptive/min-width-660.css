@@ -20,4 +20,8 @@
     .two-sides-content-wrapper.mobile-flick {
         flex-direction: column;
     }
+
+    .three-column {
+        column-count: 2;
+    }
 }

@@ -13,6 +13,7 @@ export default function Prompt({
     popupSettings = {},
     centredTitle = false,
     pureText = false,
+    onClose = () => { },
 }) {
     const o = WindowManager.newOverlay()
     const ca = []
@@ -38,7 +39,9 @@ export default function Prompt({
     }
 
     const content = (pureText ? ca : new DOM({ new: "div", content: ca }))
-    pop = new Popup(content, { control: o, fullWidth: true, ...popupSettings })
+    pop = new Popup(content, {
+        control: o, fullWidth: true, ...popupSettings, onPop: onClose,
+    })
     o.append(pop)
     return pop
 }

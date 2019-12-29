@@ -1,24 +1,26 @@
 import FadeOut from "@Environment/Library/Animations/fadeOut"
 import DOM from "@DOMPath/DOM/Classes/dom"
 import FadeIn from "@Environment/Library/Animations/fadeIn"
+import Report from "@Core/Services/report"
 import { Card } from "../object/card"
 
 export default class Popup {
     constructor(content, {
         control = {}, fullWidth = false, fullHeight = false,
         noClose = false, fixedContext = false, cardStyle = {},
-        cardSet = {}, cardClass = [],
+        cardSet = {}, cardClass = [], onPop = () => {},
     } = {}) {
         let escapeListener
 
         const pop = async () => {
             try {
+                onPop()
                 document.removeEventListener("keyup", escapeListener)
                 if (fixedContext) window.removeEventListener("appNavigation", pop)
                 await new FadeOut({ duration: 200 }).apply(control.element)
                 control.pop()
             } catch (e) {
-                console.log(e)
+                Report.error(e)
             }
         }
 

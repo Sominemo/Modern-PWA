@@ -415,6 +415,10 @@ _::-webkit-full-page-media, _:future, :root .popup-limit-container .card {
     align-items: center;
 }
 
+.ready-flex-align.wrap {
+    flex-wrap: wrap;
+}
+
 .columns-container {
     display: flex;
 }
@@ -868,4 +872,8 @@ md-simple-list-item:hover {
 
 md-simple-list-item:active,md-simple-list-item:focus  {
     background: var(--color-card-item-highlight-focus)
+}
+
+.three-column {
+    column-count: 3;
 }

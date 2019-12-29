@@ -21,11 +21,11 @@ export default class CardList {
 
         content.forEach((e) => {
             if (e.content === null) return
-            const params = { new: "div" }
+            let params = { new: "div" }
             params.class = ["card-list-item", ...("classes" in e ? e.classes : [])]
             if ("content" in e) params.content = (typeof e.content === "string" || (forceWrapper && !e.disableWrapper) ? new CardContent(e.content) : e.content)
+            params.attributes = e.attributes || []
             if ("userSelect" in e && !e.userSelect) {
-                params.attributes = []
                 params.attributes.push({
                     value: "true",
                 })
@@ -33,18 +33,30 @@ export default class CardList {
             if ("style" in e) {
                 params.style = e.style
             }
+
+            params.events = []
+
             if ("handler" in e) {
                 params.class.push("card-list-item-clickable")
 
-                params.events = []
                 params.events.push({
                     event: "click",
                     handler: e.handler,
                 })
             }
 
+            if ("events" in e) params.events = [...params.events, ...e.events]
+
             if ("object" in e) {
                 params.objectProperty = e.object
+            }
+
+            if ("set" in e) {
+                params.set = e.set
+            }
+
+            if ("other" in e) {
+                params = { ...params, ...other }
             }
 
             elements.push(new DOM(params))

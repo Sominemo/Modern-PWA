@@ -17,6 +17,7 @@ export default class WarningConstructorButton {
                     type: [...typeB, ...(button.type || [])],
                     style: {
                         flexShrink: "0",
+                        marginLeft: "5px",
                         ...(button.style || {}),
 
                     },
