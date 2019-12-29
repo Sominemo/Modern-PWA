@@ -8,7 +8,7 @@ export default class AlignedContent {
                 display: "flex",
                 alignItems: "center",
             },
-            content: a.map(item => new DOM({
+            content: a.map((item) => new DOM({
                 new: "div",
                 style: {
                     display: "flex",

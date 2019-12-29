@@ -5,7 +5,7 @@ export default class TwoSidesMobileFlick {
         return new DOM({
             new: "div",
             class: ["two-sides-content-wrapper", "mobile-flick"],
-            content: a.map(e => (e instanceof DOM ? e : new DOM({ new: "div", content: e }))),
+            content: a.map((e) => (e instanceof DOM ? e : new DOM({ new: "div", content: e }))),
         })
     }
 }

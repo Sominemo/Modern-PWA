@@ -202,7 +202,7 @@ export default class Nav {
             },
         ]).set(a)
 
-        if (this[keyConfig].some(e => e.id === a.id)) return
+        if (this[keyConfig].some((e) => e.id === a.id)) return
 
         this[keyConfig].push(a)
 
@@ -217,7 +217,7 @@ export default class Nav {
     }
 
     static getById(id, index = false, bottom = false) {
-        return this[(bottom ? "configBottom" : "config")][(index ? "findIndex" : "find")](e => e.id === id)
+        return this[(bottom ? "configBottom" : "config")][(index ? "findIndex" : "find")]((e) => e.id === id)
     }
 
     static removeById(id, bottom = false) {
@@ -322,9 +322,10 @@ export default class Nav {
     }
 
     static highlight(e) {
-        this.dom.forEach(a => a.element.classList.remove(this.activeClassName))
-        this.domBottom.forEach(a => a.element.classList.remove(this.activeClassName))
-        const ele = this.dom.find(em => em.id === e.id) || this.domBottom.find(em => em.id === e.id)
+        this.dom.forEach((a) => a.element.classList.remove(this.activeClassName))
+        this.domBottom.forEach((a) => a.element.classList.remove(this.activeClassName))
+        const ele = this.dom.find((em) => em.id === e.id)
+            || this.domBottom.find((em) => em.id === e.id)
         if (ele !== undefined) {
             const el = ele.element
             el.classList.add(this.activeClassName)

@@ -15,8 +15,8 @@ export default class SlideInCSS {
 
                 function getDimensions() {
                     original = el.sizes
-                    padding = el.getStyle(["padding-top", "padding-right", "padding-bottom", "padding-left"]).map(e => parseFloat(e, 10))
-                    margin = el.getStyle(["margin-top", "margin-right", "margin-bottom", "margin-left"]).map(e => parseFloat(e, 10))
+                    padding = el.getStyle(["padding-top", "padding-right", "padding-bottom", "padding-left"]).map((e) => parseFloat(e, 10))
+                    margin = el.getStyle(["margin-top", "margin-right", "margin-bottom", "margin-left"]).map((e) => parseFloat(e, 10))
 
                     el.style({
                         height: 0,

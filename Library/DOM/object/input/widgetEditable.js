@@ -46,7 +46,7 @@ export default class WidgetEditable {
                         ContextMenu({
                             generate: false,
                             ...contextParams,
-                            content: context => builder(input, context),
+                            content: (context) => builder(input, context),
                             event: e,
                             disableResizeHide,
                         })

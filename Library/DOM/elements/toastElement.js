@@ -79,7 +79,7 @@ export default class ToastElement {
                         new: "div",
                         class: ["md-toast-buttons", "flex-container"],
                         content: [
-                            ...buttons.map(b => new Button({
+                            ...buttons.map((b) => new Button({
                                 handler(m) {
                                     m.stopPropagation()
                                     popToast()

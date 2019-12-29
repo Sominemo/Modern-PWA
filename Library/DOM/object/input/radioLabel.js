@@ -13,7 +13,7 @@ export default class RadioLabel {
                 },
             ])]).set(data)
 
-        const radios = new MDRadio(data.map(e => ({
+        const radios = new MDRadio(data.map((e) => ({
             handler: e.handler,
             selected: (typeof e.selected === "function" ? !!(e.selected()) : !!e.selected),
             include: true,

@@ -135,7 +135,7 @@ export default async function DynamicListPopup(
                 async handler(ev, el) {
                     res = await list(el.currentValue.trim())
                     results.clear()
-                    fillElements().map(e => results.render(e))
+                    fillElements().map((e) => results.render(e))
                 },
             },
         ],
@@ -183,5 +183,5 @@ export default async function DynamicListPopup(
     res = await list("")
     results.clear()
 
-    fillElements().map(e => results.render(e))
+    fillElements().map((e) => results.render(e))
 }

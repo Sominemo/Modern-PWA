@@ -16,7 +16,7 @@ export default class Radio {
         ]).set(data)
 
         const res = []
-        let selection = data.findIndex(e => e.selected)
+        let selection = data.findIndex((e) => e.selected)
 
         data.forEach((e, i) => {
             e = { ...global, ...e }

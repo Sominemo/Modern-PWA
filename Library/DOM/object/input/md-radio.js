@@ -16,7 +16,7 @@ export default class MDRadio {
             ]),
         ]).set(data)
 
-        return new Radio(data.map(e => ({
+        return new Radio(data.map((e) => ({
             element: new DOM({
                 new: "md-radio",
                 class: classes,
