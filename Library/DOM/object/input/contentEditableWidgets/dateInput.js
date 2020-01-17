@@ -11,7 +11,7 @@ import { CardContent } from "../../card"
 
 export default class DateInput {
     constructor({
-        content = DateToString(), placeholder = "", onchange = () => { }, iconName = "edit",
+        content = new Date(), placeholder = "", onchange = () => { }, iconName = "edit",
     } = {}) {
         let acceptHandler
 
@@ -21,7 +21,7 @@ export default class DateInput {
                 const numberInput = new TextInput({
                     set: {
                         type: "date",
-                        value: input.currentValue,
+                        valueAsDate: input.currentValue,
                     },
                     style: {
                         boxShadow: "none",
@@ -40,17 +40,16 @@ export default class DateInput {
                             }, 200)
                         },
                     },
+                    dataGrabber: (el) => el.elementParse.native.valueAsDate,
+                    dataSetter: (el, v) => { el.elementParse.native.valueAsDate = v },
                 })
                 c.push(numberInput)
 
                 acceptHandler = () => {
-                    const newValue = numberInput.elementParse.native.value
-                    if (!newValue.match(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/)) return
-                    let dat = ValueToDate(newValue)
-                    dat = DateToString(new Date(dat[2], dat[1], dat[0]))
+                    const newValue = numberInput.elementParse.native.valueAsDate
 
-                    input.emitEvent("editValue", { content: dat })
-                    if (typeof onchange === "function") onchange(dat)
+                    input.emitEvent("editValue", { content: newValue })
+                    if (typeof onchange === "function") onchange(newValue)
                     context().emitEvent("contextMenuClose")
                 }
 
@@ -69,8 +68,10 @@ export default class DateInput {
                 return new CardContent(new Align(c, ["center", "column"]), { whiteSpace: "nowrap" })
             },
             disableResizeHide: true,
-            defaults: `${content}`,
+            defaults: content,
             placeholder,
+            printFunction: DateToString,
+            dataGrabber: (el) => el.elementParse.native.valueAsDate,
             iconName,
             style: {
                 boxShadow: "none",

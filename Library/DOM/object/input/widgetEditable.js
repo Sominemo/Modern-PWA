@@ -16,6 +16,8 @@ export default class WidgetEditable {
         style = {},
         contentStyle = {},
         placeholderStyle = {},
+        printFunction = (e) => String(e),
+        dataGrabber = (el) => el.elementParse.native.innerText,
     }) {
         const methods = {}
 
@@ -27,6 +29,8 @@ export default class WidgetEditable {
             style,
             contentStyle,
             placeholderStyle,
+            printFunction,
+            dataGrabber,
         })
 
         return new DOM({

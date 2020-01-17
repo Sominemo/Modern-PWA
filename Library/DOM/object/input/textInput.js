@@ -3,6 +3,8 @@ import DOM from "@DOMPath/DOM/Classes/dom"
 export default class TextInput {
     constructor({
         set = {}, style = {}, events = [], params = {},
+        dataGrabber = (el) => el.elementParse.native.value,
+        dataSetter = (el, v) => { el.elementParse.native.value = v },
     }) {
         return new DOM({
             new: "input",
@@ -13,11 +15,11 @@ export default class TextInput {
             objectProperty: [
                 {
                     name: "currentValue",
-                    get() { return this.elementParse.native.value },
+                    get() { return dataGrabber(this) },
                 },
                 {
                     name: "value",
-                    set(v) { this.elementParse.native.value = v },
+                    set(v) { dataSetter(this, v) },
                 },
             ],
             ...params,

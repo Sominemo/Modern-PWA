@@ -581,6 +581,8 @@ md-toast {
     border-radius: 5px;
     margin: 10px;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .md-toast-inner, .md-toast-buttons, .md-toast-close-button-holder {
@@ -648,6 +650,10 @@ md-input {
     margin: 5px;
     transition: all .2s;
     width: 100%;
+}
+
+input.md-input::-webkit-calendar-picker-indicator {
+    display: none;
 }
 
 md-input>md-input-content {

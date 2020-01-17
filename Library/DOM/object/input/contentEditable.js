@@ -4,8 +4,14 @@ export default class ContentEditable {
     constructor({
         placeholder = "", change = (value, element) => { }, content = "", type = "", contentType = "text",
         editable = true, onRendered = () => { }, style = {}, species = [], contentStyle = {},
-        placeholderStyle = {}, transformString = true, onKey = (value, element, event) => {},
-        set = {}, focusOnRender = false, onEnter = () => {},
+        placeholderStyle = {}, transformString = true, onKey = (value, element, event) => { },
+        set = {}, focusOnRender = false, onEnter = () => { },
+        dataGrabber = (el) => el.elementParse.native.innerText,
+        printFunction = (e) => {
+            const a = String(e).split(/\n/g).reduce((arr, b) => [...arr, b, new DOM({ new: "br" })], [])
+            a.pop()
+            return a
+        },
     }) {
         let value = content
         let curValue = value
@@ -13,8 +19,7 @@ export default class ContentEditable {
         let contentArray
 
         if (transformString) {
-            contentArray = String(content).split(/\n/g).reduce((arr, b) => [...arr, b, new DOM({ new: "br" })], [])
-            contentArray.pop()
+            contentArray = printFunction(content)
         } else contentArray = content
 
         const methods = {
@@ -24,14 +29,16 @@ export default class ContentEditable {
                     handler(ev) {
                         if (!("content" in ev)) throw new Error("Incorrect editValue event")
                         if (transformString) {
-                            const evalue = String(ev.content)
-                            ip.clear(new DOM({ type: "text", new: evalue }))
-                            value = evalue
-                            change(evalue, ip)
+                            const evalue = printFunction(ev.content)
+                            ip.clear(...(typeof evalue === "string" ? [new DOM({ type: "text", new: evalue })]
+                                : (Array.isArray(evalue) ? evalue : [evalue])
+                            ))
+                            value = ev.content
+                            change(ev.content, ip)
                         } else {
                             value = ev.content
                             ip.clear(ev.content)
-                            change(value, ip)
+                            change(ev.content, ip)
                         }
                     },
                 },
@@ -87,21 +94,21 @@ export default class ContentEditable {
                 {
                     event: "blur",
                     handler(ev, el) {
-                        value = el.elementParse.native.innerText
+                        value = dataGrabber(el)
                         change(value, el)
                     },
                 },
                 {
                     event: "keyup",
                     handler(ev, el) {
-                        curValue = el.elementParse.native.innerText
+                        curValue = dataGrabber(el)
                         onKey(curValue, ev, el)
                     },
                 },
                 {
                     event: "keypress",
                     handler(ev, el) {
-                        curValue = el.elementParse.native.innerText
+                        curValue = dataGrabber(el)
                         if (ev.keyCode === 13) onEnter(curValue, ev, el)
                     },
                 },
