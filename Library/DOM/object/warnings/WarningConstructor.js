@@ -4,6 +4,7 @@ import IconSide from "../iconSide"
 import Title from "../title"
 import TwoSidesMobileFlick from "../twoSidesMobileFlick"
 import { Card, CardContent } from "../card"
+import TwoSidesWrapper from "../twoSidesWrapper"
 
 export default class WarningConstructor {
     constructor({
@@ -11,7 +12,7 @@ export default class WarningConstructor {
         content = "",
         icon = null,
         type = 0, // 0 - none; 1 - main; 2 - accent; 3 - warning
-        sideContent = [],
+        sideContent = null,
         style = {},
     } = {}) {
         let iconColor = ""
@@ -29,7 +30,7 @@ export default class WarningConstructor {
 
         return new Card(
             new CardContent(
-                new TwoSidesMobileFlick(
+                new (sideContent === null ? TwoSidesWrapper : TwoSidesMobileFlick)(
                     new IconSide(icon,
                         [
                             new Title(title, 2, { margin: 0 }),
@@ -43,7 +44,7 @@ export default class WarningConstructor {
                                 ...(icon === null ? { display: "none" } : {}),
                             },
                         }),
-                    sideContent,
+                    (sideContent === null ? [] : sideContent),
                 ),
             ), {
                 type: cardType,
