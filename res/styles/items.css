@@ -147,6 +147,11 @@ switch-input:before {
     background: var(--color-switch-toggle);
 }
 
+switch-input[locked] {
+    opacity: .5;
+    pointer-events: none;
+}
+
 switch-input[state="0"] {
     background: var(--color-switch-race-off);
 }

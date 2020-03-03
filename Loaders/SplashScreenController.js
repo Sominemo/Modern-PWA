@@ -1,5 +1,6 @@
 import LoadState from "@Core/Services/LoadState"
 import Sleep from "@Core/Tools/objects/sleep"
+import delayAction from "@Core/Tools/objects/delayAction"
 
 export default class SplashScreenController {
     static enabled = true
@@ -82,10 +83,14 @@ export default class SplashScreenController {
         LoadState.ondone = () => {
             e.style.willChange = "opacity"
             e.style.transition = "opacity .2s"
-            requestAnimationFrame(async () => {
-                e.style.opacity = "0"
-                await Sleep(200)
-                e.remove()
+            delayAction(async () => {
+                try {
+                    e.style.opacity = "0"
+                    await Sleep(200)
+                    e.remove()
+                } catch (er) {
+                    e.remove()
+                }
             })
         }
     }
