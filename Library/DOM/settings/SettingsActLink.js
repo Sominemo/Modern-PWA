@@ -5,7 +5,7 @@ import { CardList } from "../object/card"
 import { TwoSidesWrapper, Icon } from "../object"
 
 export default class SettingsActLink {
-    constructor([act, sign, custom = false]) {
+    constructor([act, sign, custom = false, disabled = false]) {
         if (typeof act === "string") act = [act]
         sign = sign || (typeof act === "string" ? ucFirst(act[0]) : "(...)")
         const signElement = new DOM({ new: "div", content: sign })
@@ -21,6 +21,7 @@ export default class SettingsActLink {
                         handler(n) { signElement.clear(n) },
                     },
                 ],
+                ...(disabled ? { style: { opacity: "0.4" } } : {}),
             },
         ], true)
     }

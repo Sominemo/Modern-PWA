@@ -43,6 +43,12 @@ export default class WarningConstructor {
                                 fontSize: "32px",
                                 ...(icon === null ? { display: "none" } : {}),
                             },
+                            containerStyle: {
+                                width: "100%",
+                            },
+                            contentStyle: {
+                                width: "100%",
+                            },
                         }),
                     (sideContent === null ? [] : sideContent),
                 ),

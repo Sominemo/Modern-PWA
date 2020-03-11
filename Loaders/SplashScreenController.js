@@ -1,6 +1,7 @@
 import LoadState from "@Core/Services/LoadState"
-import Sleep from "@Core/Tools/objects/sleep"
 import delayAction from "@Core/Tools/objects/delayAction"
+import Report from "@Core/Services/report"
+import Sleep from "@Core/Tools/objects/sleep"
 
 export default class SplashScreenController {
     static enabled = true
@@ -81,17 +82,26 @@ export default class SplashScreenController {
         e.appendChild(statusCell)
 
         LoadState.ondone = () => {
-            e.style.willChange = "opacity"
-            e.style.transition = "opacity .2s"
-            delayAction(async () => {
-                try {
+            try {
+                e.style.willChange = "opacity"
+                e.style.transition = "opacity .2s"
+                delayAction(async () => {
+                    e.style.pointerEvents = "none"
                     e.style.opacity = "0"
                     await Sleep(200)
-                    e.remove()
-                } catch (er) {
-                    e.remove()
-                }
-            })
+                    delayAction(() => {
+                        try {
+                            e.remove()
+                        } catch (er) {
+                            Report.error("SplashScreen remove failed", er, e)
+                        }
+                    })
+                })
+            } catch (err) {
+                Report.error("SplashScreen remove failed", err, e)
+                e.style.pointerEvents = "none"
+                e.style.opacity = "0"
+            }
         }
     }
 }
