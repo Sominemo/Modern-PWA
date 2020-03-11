@@ -1,7 +1,7 @@
 import Animation from "@DOMPath/Animation/Classes/Animation"
 
 export default class SlideInCSS {
-    constructor({ renderAwait = true, ...params }) {
+    constructor({ renderAwait = true, minHeight = 0, ...params }) {
         let original
         let padding = [0, 0, 0, 0]
         let margin = [0, 0, 0, 0]
@@ -11,6 +11,7 @@ export default class SlideInCSS {
                     position: "absolute",
                     visibility: "hidden",
                     transition: `all ${this.duration}ms`,
+                    minHeight: 0,
                 })
 
                 function getDimensions() {
@@ -43,6 +44,7 @@ export default class SlideInCSS {
                         height: `${original.height}px`,
                         padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
                         margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
+                        minHeight,
                     })
                 }, 0)
 

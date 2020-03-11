@@ -20,7 +20,7 @@
     margin: 0
 }
 
-.inline-title-level-1 + .inline-title-level-2 {
+.inline-title-level-1+.inline-title-level-2 {
     margin-top: 0;
 }
 
@@ -91,16 +91,16 @@
     border-top: solid 1.5px var(--color-card-border);
 }
 
-.card .card-list-item.card-list-item-clickable {
+.card .card-list-item.card-list-item-clickable, .card.card-list-item-clickable {
     cursor: pointer;
     transition: background .3s;
 }
 
-.card .card-list-item.card-list-item-clickable:hover {
+.card .card-list-item.card-list-item-clickable:hover, .card.card-list-item-clickable:hover {
     background: var(--color-card-item-highlight);
 }
 
-.card .card-list-item.card-list-item-clickable:focus, .card .card-list-item.card-list-item-clickable:active {
+.card .card-list-item.card-list-item-clickable:focus, .card .card-list-item.card-list-item-clickable:active, .card.card-list-item-clickable:focus, .card.card-list-item-clickable:active {
     background: var(--color-card-item-highlight-focus);
 }
 
@@ -205,7 +205,7 @@ md-button {
     font-family: var(--font-accent);
 }
 
-md-button + md-button {
+md-button+md-button {
     margin-left: 10px;
 }
 
@@ -376,7 +376,7 @@ md-button:active:before, md-button:focus:before {
 
 _::-webkit-full-page-media, _:future, :root .popup-limit-container .card {
     display: flex;
-  }
+}
 
 .popup-limit-container .card>.card-scroll-container {
     max-height: 100%;
@@ -853,8 +853,7 @@ input.md-input::placeholder, textarea.md-input::placeholder {
     transition: all .2s;
 }
 
-input.md-input::-webkit-input-placeholder, input.md-input:-ms-input-placeholder, input.md-input::-ms-input-placeholder,
-textarea.md-input::-webkit-input-placeholder, textarea.md-input:-ms-input-placeholder, textarea.md-input::-ms-input-placeholder {
+input.md-input::-webkit-input-placeholder, input.md-input:-ms-input-placeholder, input.md-input::-ms-input-placeholder, textarea.md-input::-webkit-input-placeholder, textarea.md-input:-ms-input-placeholder, textarea.md-input::-ms-input-placeholder {
     color: var(--color-text-input-placeholder);
     transition: all .2s;
 }
@@ -881,7 +880,7 @@ md-simple-list-item:hover {
     background: var(--color-card-item-highlight)
 }
 
-md-simple-list-item:active,md-simple-list-item:focus  {
+md-simple-list-item:active, md-simple-list-item:focus {
     background: var(--color-card-item-highlight-focus)
 }
 
