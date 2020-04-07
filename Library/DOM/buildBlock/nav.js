@@ -51,7 +51,7 @@ export default class Nav {
             },
             {
                 icon: "info",
-                title: $$("@about/app"),
+                title: $$("about/app"),
                 handler() {
                     Navigation.url = { module: "about" }
                 },

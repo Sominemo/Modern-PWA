@@ -30,6 +30,11 @@ export default class Switch {
                 .getAttribute(this.constructor.stateAttr), 10)))
         }
 
+        const changeLock = (s = true) => {
+            if (s) element.elementParse.native.setAttribute("locked", "")
+            else element.elementParse.native.removeAttribute("locked", "")
+        }
+
         const changeStateHandler = async (r, o) => {
             await Promise.all(r.map(async (e) => {
                 if (e.attributeName === this.constructor.stateAttr) {
@@ -67,7 +72,7 @@ export default class Switch {
             new: "switch-input",
             attributes: {
                 state: (state ? 1 : 0),
-                ...(locked ? [{ locked: "" }] : []),
+                ...(locked ? { locked: "" } : {}),
             },
             mutations: [
                 {
@@ -84,7 +89,11 @@ export default class Switch {
             objectProperty: [
                 {
                     name: "changeState",
-                    value: changeState,
+                    handler: changeState,
+                },
+                {
+                    name: "changeLock",
+                    handler: changeLock,
                 },
             ],
         })

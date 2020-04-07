@@ -21,6 +21,12 @@ export default class SwitchLabel {
                     handler() { return s[1]() },
                 },
             ],
+            objectProperty: [
+                {
+                    name: "switch",
+                    handler: s[0],
+                },
+            ],
         })
     }
 }

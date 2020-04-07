@@ -1,6 +1,6 @@
 import LoadState from "@Core/Services/LoadState"
 import delayAction from "@Core/Tools/objects/delayAction"
-import Report from "@Core/Services/report"
+import Report from "@Core/Services/reportOld"
 import Sleep from "@Core/Tools/objects/sleep"
 
 export default class SplashScreenController {

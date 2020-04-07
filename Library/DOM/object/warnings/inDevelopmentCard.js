@@ -6,7 +6,7 @@ export default class InDevelopmentCard {
         return new WarningConstructor({
             icon: "sms_failed",
             // TODO: Localize
-            title: $$("@experiments/warning"),
+            title: $$("experiments/warning"),
             content: $$("dev_warn"),
             type: 3,
         })

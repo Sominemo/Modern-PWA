@@ -1,6 +1,5 @@
 import DateToString from "@Core/Tools/time/dateToString"
 import Design from "@Core/Services/design"
-import ValueToDate from "@Core/Tools/time/ValueToDate"
 import { $$ } from "@Core/Services/Language/handler"
 import { Align } from "@Environment/Library/DOM/style"
 import WidgetEditable from "../widgetEditable"

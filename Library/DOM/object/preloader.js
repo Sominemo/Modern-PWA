@@ -12,9 +12,9 @@ export default class Preloader {
         })
     }
 
-    static _preloader({
+    static #preloader = ({
         main, accent, size, style,
-    } = {}) {
+    } = {}) => {
         let svg = require("@Resources/images/vector/preloader.svg")
         svg = svg
             .replace(/\$mainColor\$/g, main)
@@ -27,7 +27,7 @@ export default class Preloader {
             })
     }
 
-    static getPreloader(...p) { return this._preloader(...p) }
+    static getPreloader(...p) { return this.#preloader(...p) }
 
-    static setPreloader(s) { this._preloader = s }
+    static setPreloader(s) { this.#preloader = s }
 }

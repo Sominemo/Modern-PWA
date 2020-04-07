@@ -6,7 +6,7 @@ export default class InDevelopmentCard {
         return new WarningConstructor({
             icon: "whatshot",
             // TODO: Localize
-            title: $$("@experiments/warning"),
+            title: $$("experiments/warning"),
             content: $$("preview_warn"),
             type: 2,
         })

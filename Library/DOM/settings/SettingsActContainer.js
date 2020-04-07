@@ -27,7 +27,7 @@ export default class SettingsActContainer {
             onRender(p, e) {
                 if (data.lock) {
                     // TODO: Localize
-                    Toast.add($$("@settings/locked_item"))
+                    Toast.add($$("settings/locked_item"))
                 }
             },
         })

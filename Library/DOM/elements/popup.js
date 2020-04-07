@@ -1,7 +1,7 @@
 import FadeOut from "@Environment/Library/Animations/fadeOut"
 import DOM from "@DOMPath/DOM/Classes/dom"
 import FadeIn from "@Environment/Library/Animations/fadeIn"
-import Report from "@Core/Services/report"
+import Report from "@Core/Services/reportOld"
 import { Card } from "../object/card"
 
 export default class Popup {

@@ -3,7 +3,7 @@ import EaseInQuad from "@DOMPath/Animation/Library/Timing/easeInQuad"
 import WindowManager from "@Core/Services/SimpleWindowManager"
 import PointerInfo from "@Core/Services/PointerInfo"
 import EaseOutQuad from "@DOMPath/Animation/Library/Timing/easeOutQuad"
-import Report from "@Core/Services/report"
+import Report from "@Core/Services/reportOld"
 import Animation from "@DOMPath/Animation/Classes/Animation"
 
 export default class ContextMenuElement {
