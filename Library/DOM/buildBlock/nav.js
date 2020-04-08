@@ -1,5 +1,4 @@
 import Navigation from "@Core/Services/navigation"
-import { $$ } from "@Core/Services/Language/handler"
 import Design from "@Core/Services/design"
 import DOM from "@DOMPath/DOM/Classes/dom"
 import EaseInOutQuad from "@DOMPath/Animation/Library/Timing/easeInOutQuad"
@@ -34,28 +33,14 @@ export default class Nav {
         return this.navListFunction()
     }
 
+    static constantNavMenu = []
+
     static navListFunction() {
         const current = Navigation.Current
         const custom = current.navMenu || []
-
-        // TODO: Customization
         return [
-            ...(Object.keys(custom).length > 0 ? [...custom, { type: "delimeter" }] : []),
-            {
-                icon: "settings",
-                // TODO: Localizations
-                title: $$("settings"),
-                handler() {
-                    Navigation.url = { module: "settings" }
-                },
-            },
-            {
-                icon: "info",
-                title: $$("about/app"),
-                handler() {
-                    Navigation.url = { module: "about" }
-                },
-            },
+            ...(Object.keys(custom).length > 0 && this.constantNavMenu.length > 0 ? [...custom, { type: "delimeter" }] : []),
+            ...this.constantNavMenu,
         ]
     }
 
