@@ -3,7 +3,9 @@ import { $$ } from "@Core/Services/Language/handler"
 import Toast from "../../elements/toast"
 
 export default class FileInput {
-    constructor({ onchange = () => {}, methods = {}, maxSize = 0 } = {}) {
+    constructor({
+        onchange = () => { }, methods = {}, maxSize = 0, sign = "Select file", sizeExceded = "The file is too big",
+    } = {}) {
         const inputID = `file-input-${parseInt(Math.random() * (10 ** 10), 10)}`
 
         // eslint-disable-next-line prefer-const, no-unused-vars
@@ -14,8 +16,7 @@ export default class FileInput {
             set: {
                 htmlFor: inputID,
             },
-            // TODO: Localize
-            content: $$("select_file"),
+            content: sign,
             tabIndex: 1,
         })
 
@@ -32,8 +33,7 @@ export default class FileInput {
                         const thefile = holder.elementParse.native.files[0]
                         if (thefile === undefined) return
                         if (maxSize && thefile.size > maxSize) {
-                            // TODO: Localize
-                            Toast.add($$("file_too_big"))
+                            Toast.add(sizeExceded)
                             presence.clear(new DOM({ type: "text", new: $$("select_file") }))
                             return
                         }

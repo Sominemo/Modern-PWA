@@ -1,6 +1,5 @@
 import Design from "@Core/Services/design"
 import DOM from "@DOMPath/DOM/Classes/dom"
-import { $$ } from "@Core/Services/Language/handler"
 import { Align } from "@Environment/Library/DOM/style"
 import WidgetEditable from "../widgetEditable"
 import NumericTextInput from "../numericTextInput"
@@ -10,7 +9,7 @@ import { CardContent } from "../../card"
 
 export default class BigNumberInput {
     constructor({
-        content = 0, placeholder = "", onchange = () => { }, units = null, min = 0, max = null, iconName = "edit",
+        content = 0, placeholder = "", onchange = () => { }, units = null, min = 0, max = null, iconName = "edit", buttonText = "Done",
     } = {}) {
         let acceptHandler
         let unitHint = null
@@ -106,8 +105,7 @@ export default class BigNumberInput {
                 }
 
                 c.push(new Button({
-                    // TODO: Localize
-                    content: new IconSide("done", $$("done")),
+                    content: new IconSide("done", buttonText),
                     type: ["accent"],
                     style: {
                         marginLeft: "auto",

@@ -1,4 +1,3 @@
-import { $$ } from "@Core/Services/Language/handler"
 import DOM from "@DOMPath/DOM/Classes/dom"
 import ContentEditable from "./contentEditable"
 import Icon from "../icon"
@@ -6,8 +5,7 @@ import { ContextMenu } from "../../elements"
 
 export default class WidgetEditable {
     constructor({
-        // TODO: Localize
-        placeholder = $$("tap_to_change"),
+        placeholder = "Tap to change",
         contextParams = {},
         builder = () => { },
         defaults = "",

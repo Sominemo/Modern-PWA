@@ -1,6 +1,5 @@
 import DateToString from "@Core/Tools/time/dateToString"
 import Design from "@Core/Services/design"
-import { $$ } from "@Core/Services/Language/handler"
 import { Align } from "@Environment/Library/DOM/style"
 import WidgetEditable from "../widgetEditable"
 import TextInput from "../textInput"
@@ -10,7 +9,7 @@ import { CardContent } from "../../card"
 
 export default class DateInput {
     constructor({
-        content = new Date(), placeholder = "", onchange = () => { }, iconName = "edit",
+        content = new Date(), placeholder = "", onchange = () => { }, iconName = "edit", buttonText = "Done",
     } = {}) {
         let acceptHandler
 
@@ -53,8 +52,7 @@ export default class DateInput {
                 }
 
                 c.push(new Button({
-                    // TODO: Localize
-                    content: new IconSide("done", $$("done")),
+                    content: new IconSide("done", buttonText),
                     type: ["accent"],
                     style: {
                         marginLeft: "auto",

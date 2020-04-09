@@ -1,4 +1,3 @@
-import { $$ } from "@Core/Services/Language/handler"
 import FieldsContainer from "@Core/Tools/validation/fieldsContainer"
 import FieldChecker from "@Core/Tools/validation/fieldChecker"
 import DOM from "@DOMPath/DOM/Classes/dom"
@@ -11,8 +10,7 @@ import { Popup } from "../../elements"
 
 export default class SelectInput {
     constructor({
-        // TODO: Localize
-        placeholder = $$("select_option"),
+        placeholder = "Select option",
         options = [],
         defaultOption = -1,
         change = (option) => { },
