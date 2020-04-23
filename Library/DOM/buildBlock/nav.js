@@ -386,13 +386,13 @@ export default class Nav {
                                 new: "div",
                                 class: "nav-item",
                                 content: new Icon("more_vert"),
+                                events: [
+                                    {
+                                        event: "click",
+                                        handler(ev, el) { Nav.Toggle(el, ev) },
+                                    },
+                                ],
                             }),
-                            events: [
-                                {
-                                    event: "click",
-                                    handler(ev, el) { Nav.Toggle(el, ev) },
-                                },
-                            ],
                         }),
                         this.constructor.html,
 

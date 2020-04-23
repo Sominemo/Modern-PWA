@@ -709,13 +709,42 @@ md-select, md-widget-editable {
     display: block;
 }
 
-md-input+.md-select-hint>md-icon {
+md-select:focus md-input, md-widget-editable:focus md-input, md-select:active md-input, md-widget-editable:active md-input {
+    background: var(--color-button-ripple);
+}
+
+md-input+.md-select-hint {
     position: absolute;
     right: 1%;
     top: 50%;
     transform: translateY(-50%);
     display: block;
     color: var(--color-accent);
+}
+
+md-input+.md-select-hint>md-icon {
+    position: relative;
+}
+
+md-input+.md-select-hint>md-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: all .3s;
+    background: transparent;
+    opacity: 0;
+}
+
+md-input:focus+.md-select-hint>md-icon::after, md-input:focus-within+.md-select-hint>md-icon::after, md-select:focus .md-select-hint>md-icon::after, md-widget-editable:focus .md-select-hint>md-icon::after,
+md-input:active+.md-select-hint>md-icon::after, md-select:active .md-select-hint>md-icon::after, md-widget-editable:active .md-select-hint>md-icon::after {
+    transform: translate(-50%, -50%) scale(1.2);
+    background: var(--color-button-ripple);
+    opacity: 1;
 }
 
 md-file-wrapper>label {
@@ -886,4 +915,36 @@ md-simple-list-item:active, md-simple-list-item:focus {
 
 .three-column {
     column-count: 3;
+}
+
+
+
+.clickable-square {
+    position: relative;
+}
+
+.clickable-square::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: all .3s;
+    background: transparent;
+    opacity: 0;
+}
+
+.clickable-square:hover::after {
+    transform: translate(-50%, -50%) scale(1.2);
+    background: var(--color-button-ripple);
+    opacity: .8;
+}
+
+.clickable-square:active::after, .clickable-square:focus::after, .clickable-square:focus-within::after {
+    transform: translate(-50%, -50%) scale(1.5);
+    background: var(--color-button-ripple);
+    opacity: 1;
 }
