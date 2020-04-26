@@ -1,7 +1,7 @@
 import FadeOut from "@Environment/Library/Animations/fadeOut"
 import DOM from "@DOMPath/DOM/Classes/dom"
 import FadeIn from "@Environment/Library/Animations/fadeIn"
-import Report from "@Core/Services/reportOld"
+import { Report } from "@Core/Services/Report"
 import { Card } from "../object/card"
 
 export default class Popup {
@@ -20,7 +20,7 @@ export default class Popup {
                 await new FadeOut({ duration: 200 }).apply(control.element)
                 control.pop()
             } catch (e) {
-                Report.error(e)
+                Report.add(e, "error")
             }
         }
 

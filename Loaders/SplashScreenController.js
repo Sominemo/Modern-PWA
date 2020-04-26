@@ -1,6 +1,6 @@
 import LoadState from "@Core/Services/LoadState"
 import delayAction from "@Core/Tools/objects/delayAction"
-import Report from "@Core/Services/reportOld"
+import { Report } from "@Core/Services/Report"
 import Sleep from "@Core/Tools/objects/sleep"
 
 export default class SplashScreenController {
@@ -93,12 +93,12 @@ export default class SplashScreenController {
                         try {
                             e.remove()
                         } catch (er) {
-                            Report.error("SplashScreen remove failed", er, e)
+                            Report.add([er, e], "error")
                         }
                     })
                 })
             } catch (err) {
-                Report.error("SplashScreen remove failed", err, e)
+                Report.add([err, e], "error")
                 e.style.pointerEvents = "none"
                 e.style.opacity = "0"
             }

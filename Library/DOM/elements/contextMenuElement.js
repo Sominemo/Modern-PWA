@@ -3,7 +3,7 @@ import EaseInQuad from "@DOMPath/Animation/Library/Timing/easeInQuad"
 import WindowManager from "@Core/Services/SimpleWindowManager"
 import PointerInfo from "@Core/Services/PointerInfo"
 import EaseOutQuad from "@DOMPath/Animation/Library/Timing/easeOutQuad"
-import Report from "@Core/Services/reportOld"
+import { Report } from "@Core/Services/Report"
 import Animation from "@DOMPath/Animation/Classes/Animation"
 
 export default class ContextMenuElement {
@@ -211,7 +211,7 @@ export default class ContextMenuElement {
                 try {
                     onRendered.bind(this)(ev, el, size)
                 } catch (e) {
-                    Report.write("OnRendered error in context menu", e)
+                    Report.add(e, "error")
                 }
             },
         })
