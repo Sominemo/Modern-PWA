@@ -1,4 +1,6 @@
-import { CoreLoader, CoreLoaderResult, CoreLoaderSkip } from "@Core/Init/CoreLoader"
+import {
+    CoreLoader, CoreLoaderResult, CoreLoaderSkip, CoreLoaderWarning,
+} from "@Core/Init/CoreLoader"
 import SplashScreenController from "./SplashScreenController"
 
 CoreLoader.registerTask({
@@ -7,9 +9,19 @@ CoreLoader.registerTask({
     task() {
         if (!SplashScreenController.enabled) return new CoreLoaderSkip()
         SplashScreenController.splashFunction()
-        window.addEventListener("load", () => {
-            document.body.appendChild(SplashScreenController.splashElement)
-        })
+        const exec = () => {
+            if (SplashScreenController.enabled) {
+                document.body.appendChild(SplashScreenController.splashElement)
+            }
+        }
+        if (!document.body) window.addEventListener("DOMContentLoaded", exec)
+        else {
+            try {
+                exec()
+            } catch (e) {
+                throw new CoreLoaderWarning("SplashScreen failed", e)
+            }
+        }
 
         return new CoreLoaderResult()
     },

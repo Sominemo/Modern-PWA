@@ -7,6 +7,7 @@ import ContentEditable from "./contentEditable"
 import RadioLabel from "./radioLabel"
 import Icon from "../icon"
 import { Popup } from "../../elements"
+import { Scaffold } from "../../buildBlock"
 
 export default class SelectInput {
     constructor({
@@ -63,6 +64,18 @@ export default class SelectInput {
         }
 
         const selector = new RadioLabel(radioOptions)
+
+        if (Scaffold.accessibility) {
+            try {
+                selector[0].onEvent("rendered", (ev, el) => {
+                    setTimeout(() => {
+                        el.elementParse.native.focus()
+                    }, 200)
+                })
+            } catch (e) {
+                // Nothing to focus
+            }
+        }
 
         return new DOM({
             new: "md-select",

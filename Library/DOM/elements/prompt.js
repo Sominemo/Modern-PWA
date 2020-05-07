@@ -5,6 +5,7 @@ import { CardContent } from "../object/card"
 import { Align } from "../style"
 import { Button } from "../object/input"
 import Popup from "./popup"
+import { Scaffold } from "../buildBlock"
 
 export default function Prompt({
     title = null,
@@ -30,11 +31,27 @@ export default function Prompt({
         ca.push(new DOM({
             new: "div",
             class: "bottom-buttons",
-            content: new Align(buttons.map((e) => {
+            content: new Align(buttons.map((e, i) => {
                 if (e instanceof DOM) return e
                 if (typeof e === "object") if (e.handler === "close") e.handler = () => pop.close()
                 return new Button(e)
             }), ["center", "row"]),
+            ...(
+                Scaffold.accessibility
+                    ? {
+                        onRendered(ev, el) {
+                            setTimeout(() => {
+                                try {
+                                    el.content.values().next().value
+                                        .content.values().next().value
+                                        .elementParse.native.focus()
+                                } catch (e) {
+                                    // Nothing to focus
+                                }
+                            }, 200)
+                        },
+                    } : {}
+            ),
         }))
     }
 

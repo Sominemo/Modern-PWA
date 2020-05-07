@@ -3,12 +3,13 @@ import DOM from "@DOMPath/DOM/Classes/dom"
 import FadeIn from "@Environment/Library/Animations/fadeIn"
 import { Report } from "@Core/Services/Report"
 import { Card } from "../object/card"
+import { Scaffold } from "../buildBlock"
 
 export default class Popup {
     constructor(content, {
         control = {}, fullWidth = false, fullHeight = false,
         noClose = false, fixedContext = false, cardStyle = {},
-        cardSet = {}, cardClass = [], onPop = () => {},
+        cardSet = {}, cardClass = [], onPop = () => { },
     } = {}) {
         let escapeListener
 
@@ -56,6 +57,15 @@ export default class Popup {
         return new DOM({
             new: "div",
             onRender(p, e) { new FadeIn({ duration: 200 }).apply(e) },
+            ...(Scaffold.accessibility
+                ? {
+                    onRendered(p, e) {
+                        setTimeout(() => {
+                            e.elementParse.native.focus()
+                        }, 200)
+                    },
+                }
+                : {}),
             style: {
                 opacity: "0",
             },

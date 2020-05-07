@@ -22,7 +22,7 @@ export default class ContextMenuElement {
         content = [], style = {}, coords = null, control = null, mode = "context",
         event = false, noSelfControl = false, onClose = false, classes = [],
         onRendered = () => { }, onClosing = false, renderClasses = [],
-        disableResizeHide = false,
+        disableResizeHide = false, closeOnKey = false,
     } = {}) {
         let x = 0
         let y = 0
@@ -32,6 +32,7 @@ export default class ContextMenuElement {
         let card
         let closing = false
         let outside
+        let onkey
 
         const isolator = new DOM({
             new: "context-menu-handler-isolate",
@@ -78,6 +79,7 @@ export default class ContextMenuElement {
             document.body.removeEventListener("context", outside)
             window.removeEventListener("resize", closeCurrent)
             window.removeEventListener("appNavigation", closeCurrent)
+            if (closeOnKey) window.removeEventListener("keydown", onkey)
             WindowManager.controlWin.elementParse.native.removeEventListener("scroll", closeCurrent)
             if (typeof onClose === "function") onClose()
             return true
@@ -109,11 +111,18 @@ export default class ContextMenuElement {
             closeCurrent()
         }
 
+        onkey = (ev) => {
+            if (ev.keyCode !== 27 && ev.which !== 27) return
+            ev.preventDefault()
+            closeCurrent()
+        }
+
 
         const setListeners = () => {
             document.body.addEventListener("click", outside)
             document.body.addEventListener("context", outside)
             window.addEventListener("appNavigation", closeCurrent)
+            if (closeOnKey) window.addEventListener("keydown", onkey)
             if (!disableResizeHide) window.addEventListener("resize", closeCurrent)
             if (!disableResizeHide) WindowManager.controlWin.elementParse.native.addEventListener("scroll", closeCurrent)
         }

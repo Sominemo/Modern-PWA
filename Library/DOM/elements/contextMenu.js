@@ -2,8 +2,9 @@ import DOM from "@DOMPath/DOM/Classes/dom"
 import WindowManager from "@Core/Services/SimpleWindowManager"
 import ContextMenuElement from "./contextMenuElement"
 import { Icon } from "../object"
+import { Scaffold } from "../buildBlock"
 
-function toMenuItem(o, close = false) {
+function toMenuItem(o, close = false, ind) {
     const {
         type = "item", icon = null, title, handler = () => { }, disabled = false, unshown = false, style = {},
     } = o
@@ -39,6 +40,17 @@ function toMenuItem(o, close = false) {
                     handler: proxyHandler,
                 },
             ],
+            ...(
+                ind === 0 && Scaffold.accessibility
+                    ? {
+                        onRendered(ev, el) {
+                            setTimeout(() => {
+                                el.elementParse.native.focus()
+                            }, 200)
+                        },
+                    }
+                    : {}
+            ),
         })
     }
 
@@ -57,7 +69,7 @@ function toMenuItem(o, close = false) {
 function ContextMenu({
     content = [], coords = null, style = {}, mode = "context", event = false, noSelfControl = false,
     onClose = false, classes = [], onRendered = () => { }, onClosing = false, renderClasses = [],
-    generate = true, disableResizeHide = false,
+    generate = true, disableResizeHide = false, closeOnKey = true,
 } = {}) {
     const h = WindowManager.newHelper()
 
@@ -74,10 +86,11 @@ function ContextMenu({
         onClosing,
         renderClasses,
         disableResizeHide,
+        closeOnKey,
         content: (
             generate
-                ? content.reduce((a, c) => {
-                    const conv = toMenuItem(c, () => { cm[0].emitEvent("contextMenuClose") })
+                ? content.reduce((a, c, ind) => {
+                    const conv = toMenuItem(c, () => { cm[0].emitEvent("contextMenuClose") }, ind)
                     if (conv) a.push(conv)
                     return a
                 }, [])

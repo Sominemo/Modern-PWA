@@ -94,6 +94,87 @@ md-icon {
     -khtml-user-select: none;
 }
 
+.sr-only {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 0;
+    padding: 0;
+}
+
+.sr-only:focus, .sr-only:active, .sr-only:focus-within {
+    clip: unset;
+    clip-path: unset;
+    height: unset;
+    overflow: unset;
+    position: unset;
+    white-space: unset;
+    width: unset;
+    padding: unset;
+}
+
+#accessibility-link-bar:focus, #accessibility-link-bar:active, #accessibility-link-bar:focus-within {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+#accessibility-link {
+    text-decoration: none;
+    display: block;
+    padding: 15px 20px;
+    background: rgba(116, 116, 116, .5);
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition: all .1s ease-out;
+    z-index: 2;
+}
+
+@keyframes access-bar-ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 100vmax;
+        height: 100vmax;
+        opacity: 0;
+    }
+}
+
+#accessibility-link-bar::before {
+    pointer-events: none;
+    z-index: 1;
+}
+
+#accessibility-link-bar:focus::before, #accessibility-link-bar:active::before, #accessibility-link-bar:focus-within::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(116, 116, 116, .25);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    animation-name: access-bar-ripple;
+    animation-duration: .5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+#accessibility-link:hover, #accessibility-link:active {
+    background: rgba(116, 116, 116, .75);
+}
+
 #scaffold {
     width: 100vw;
     height: 100vh;
