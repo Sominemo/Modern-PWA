@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&subset=cyrillic');
-@import url('https://fonts.googleapis.com/css?family=Product+Sans:300,400,400italic&subset=cyrillic');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,400&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Product+Sans:400&subset=cyrillic&display=block');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400&display=block');
 
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: block;
   src: url(../icons/outline/font.ttf) format('truetype');
 }
 
