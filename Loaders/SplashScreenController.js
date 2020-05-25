@@ -8,9 +8,9 @@ export default class SplashScreenController {
 
     static splashElement = document.createElement("div")
 
-    static splashBG = "#181A1D"
+    static splashBG = "#FFFFFF"
 
-    static splashColor = "#FFFFFF"
+    static splashColor = "#181A1D"
 
     static splashImage = document.createElement("div")
 

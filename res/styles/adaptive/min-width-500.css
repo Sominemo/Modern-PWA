@@ -50,9 +50,12 @@
         display: none;
     }
     nav .nav-content {
-        height: calc(100% - 10px);
+        height: 100%;
     }
-    nav .mobile-gesture, context-menu-element>.mobile-gesture {
+    nav .mobile-gesture {
+        display: none;
+    }
+    context-menu-element>.mobile-gesture {
         display: block;
         height: 5px;
         width: 33%;
