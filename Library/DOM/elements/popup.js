@@ -9,7 +9,7 @@ export default class Popup {
     constructor(content, {
         control = {}, fullWidth = false, fullHeight = false,
         noClose = false, fixedContext = false, cardStyle = {},
-        cardSet = {}, cardClass = [], onPop = () => { },
+        cardSet = {}, cardClass = [], onPop = () => { }, cardAdditional,
     } = {}) {
         let escapeListener
 
@@ -49,7 +49,7 @@ export default class Popup {
                 ...cardStyle,
             },
             type: cardClass,
-        }, cardSet)
+        }, cardSet, cardAdditional)
 
         document.addEventListener("keyup", escapeListener)
         if (fixedContext) window.addEventListener("appNavigation", pop)

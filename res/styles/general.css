@@ -1,5 +1,5 @@
 :root {
-    --size-nav-height: 0px;
+    --size-nav-height: 0;
 }
 
 * {
@@ -28,8 +28,8 @@ body {
     background-color: var(--color-fallback-main-bg);
     background-color: var(--color-fallback-main-bg);
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     height: 100%;
     min-height: 100%;
     font-size: var(--size-text-default);
@@ -125,6 +125,10 @@ md-icon {
     overflow: hidden;
 }
 
+#accessibility-link-bar:focus+nav, #accessibility-link-bar:active+nav, #accessibility-link-bar:focus-within+nav {
+    position: relative;
+}
+
 #accessibility-link {
     text-decoration: none;
     display: block;
@@ -198,7 +202,7 @@ nav {
     position: relative;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 501px) {
     nav .nav-content {
         margin: auto;
     }
@@ -351,18 +355,6 @@ main {
 
 .flex-container {
     display: flex;
-}
-
-@keyframes gesture-jump {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-5px);
-    }
-    100% {
-        transform: translateY(0);
-    }
 }
 
 @media (min-width: 1260px) {

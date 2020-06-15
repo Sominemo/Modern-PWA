@@ -15,11 +15,11 @@ export default function Prompt({
     centredTitle = false,
     pureText = false,
     onClose = () => { },
+    cardAdditional,
 }) {
     const o = WindowManager.newOverlay()
     const ca = []
     let pop
-
 
     if (title !== null) {
         let titleObject = new Title(title, 2)
@@ -57,7 +57,11 @@ export default function Prompt({
 
     const content = (pureText ? ca : new DOM({ new: "div", content: ca }))
     pop = new Popup(content, {
-        control: o, fullWidth: true, ...popupSettings, onPop: onClose,
+        control: o,
+        fullWidth: true,
+        ...popupSettings,
+        onPop: onClose,
+        cardAdditional,
     })
     o.append(pop)
     return pop
