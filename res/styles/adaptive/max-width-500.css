@@ -2,6 +2,8 @@
     :root {
         --nav-bottom: 1;
         --size-nav-height: var(--size-nav-width);
+        --flag-scaffold-mode: mobile;
+        --size-card-side: 28vmin;
     }
     @media all and (display-mode: standalone) {
         body {

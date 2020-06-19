@@ -740,8 +740,7 @@ md-input+.md-select-hint>md-icon::after {
     opacity: 0;
 }
 
-md-input:focus+.md-select-hint>md-icon::after, md-input:focus-within+.md-select-hint>md-icon::after, md-select:focus .md-select-hint>md-icon::after, md-widget-editable:focus .md-select-hint>md-icon::after,
-md-input:active+.md-select-hint>md-icon::after, md-select:active .md-select-hint>md-icon::after, md-widget-editable:active .md-select-hint>md-icon::after {
+md-input:focus+.md-select-hint>md-icon::after, md-input:focus-within+.md-select-hint>md-icon::after, md-select:focus .md-select-hint>md-icon::after, md-widget-editable:focus .md-select-hint>md-icon::after, md-input:active+.md-select-hint>md-icon::after, md-select:active .md-select-hint>md-icon::after, md-widget-editable:active .md-select-hint>md-icon::after {
     transform: translate(-50%, -50%) scale(1.2);
     background: var(--color-button-ripple);
     opacity: 1;
@@ -917,8 +916,6 @@ md-simple-list-item:active, md-simple-list-item:focus {
     column-count: 3;
 }
 
-
-
 .clickable-square {
     position: relative;
 }
@@ -947,4 +944,56 @@ md-simple-list-item:active, md-simple-list-item:focus {
     transform: translate(-50%, -50%) scale(1.5);
     background: var(--color-button-ripple);
     opacity: 1;
+}
+
+progress.material-linear {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    height: 0.25em;
+    --progress-color: var(--color-main);
+    --progress-color-light: var(--color-main-light-b);
+    color: var(--progress-color);
+    background-color: var(--progress-color-light);
+    font-size: 1em;
+}
+
+progress.material-linear::-webkit-progress-bar {
+    background-color: transparent;
+}
+
+progress.material-linear::-webkit-progress-value, progress.material-linear::-moz-progress-bar, progress::-ms-fill {
+    border: none;
+    background-color: var(--progress-color);
+    transition: all 0.2s;
+}
+
+progress.material-linear:indeterminate {
+    background-size: 200% 100%;
+    background-image: linear-gradient(to right, transparent 50%, var(--progress-color) 50%, var(--progress-color) 60%, transparent 60%, transparent 71.5%, var(--progress-color) 71.5%, var(--progress-color) 84%, transparent 84%);
+    animation: progress-material-linear 2s infinite linear;
+}
+
+progress.material-linear:indeterminate::-moz-progress-bar {
+    background-color: transparent;
+}
+
+progress.material-linear:indeterminate::-ms-fill {
+    animation-name: none;
+}
+
+@keyframes progress-material-linear {
+    0% {
+        background-size: 200% 100%;
+        background-position: left -31.25% top 0%;
+    }
+    50% {
+        background-size: 800% 100%;
+        background-position: left -49% top 0%;
+    }
+    100% {
+        background-size: 400% 100%;
+        background-position: left -102% top 0%;
+    }
 }
