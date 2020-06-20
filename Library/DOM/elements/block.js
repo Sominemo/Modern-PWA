@@ -1,5 +1,6 @@
 import DOM from "@DOMPath/DOM/Classes/dom"
 import delayAction from "@Core/Tools/objects/delayAction"
+import hexToRgb from "@Core/Tools/transformation/text/hexToRgb"
 import { Icon } from "../object"
 
 export default class Block {
@@ -53,7 +54,13 @@ export default class Block {
                             this.style({ opacity: "" })
                             setTimeout(() => {
                                 el.content.values().next().value.destructSelf()
-                                const color = (result.shadow || [142, 142, 142]).join(",")
+                                const color = (
+                                    (
+                                        Array.isArray(result.shadow)
+                                            ? result.shadow
+                                            : hexToRgb(result.shadow, { array: true })
+                                    )
+                                    || [142, 142, 142]).join(",")
                                 el.style({
                                     boxShadow: `0px 0.5vmin 0.7vmin rgba(${color},0.05), 0px 1vmin 2vmin rgba(${color},0.1)`,
                                 })

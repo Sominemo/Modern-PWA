@@ -11,7 +11,15 @@ export default class ModernBlocks {
     widgets = []
 
     constructor({ centering = true, widgets = [] } = {}) {
-        this.widgets = widgets
+        this.widgets = widgets.filter((e) => !(e.item instanceof Error)).sort((a, b) => {
+            if (a.y < b.y) return -1
+            if (a.y > b.y) return 1
+
+            if (a.x < b.x) return -1
+            if (a.x > b.x) return 1
+            return 0
+        })
+
         this.header = new DOM({
             new: "div",
             class: ["win-modern-blocks-header"],
@@ -56,13 +64,13 @@ export default class ModernBlocks {
         return (Design.scaffoldMode === "mobile" ? 3 : null)
     }
 
-    takenMap(widgets = this.widgets) {
+    takenMap(widgets = this.autoReposition) {
         const map = {}
         widgets.forEach(({ item, x, y }, ind) => {
             const { size } = item
-            for (let i = y; i < y + size.y - 1; i++) {
+            for (let i = y; i < y + size.y; i++) {
                 if (!(i in map)) map[i] = {}
-                for (let j = x; j < x + size.x - 1; j++) {
+                for (let j = x; j < x + size.x; j++) {
                     if (j in map[i]) throw new Error("Widget overlap")
                     map[i][j] = ind
                 }
@@ -74,11 +82,11 @@ export default class ModernBlocks {
 
     checkFit({
         x, y, sizeX, sizeY,
-    }, map = this.widgets) {
+    }, map = this.takenMap()) {
         if (x + sizeX - 1 > this.limit) return false
-        for (let i = y; i < y + sizeY - 1; i++) {
+        for (let i = y; i < y + sizeY; i++) {
             if (!(i in map)) break
-            for (let j = x; j < x + sizeX - 1; j++) {
+            for (let j = x; j < x + sizeX; j++) {
                 if (j in map[i]) return false
             }
         }
@@ -94,14 +102,14 @@ export default class ModernBlocks {
             if (item.size.x > limit) return
             if (this.checkFit({
                 x, y, sizeX: item.size.x, sizeY: item.size.y,
-            }, repositioned)) {
+            }, this.takenMap(repositioned))) {
                 repositioned.push({ x, y, item })
             } else {
                 let newX = 1
                 let newY = y + 1
                 while (!this.checkFit({
                     x: newX, y: newY, sizeX: item.size.x, sizeY: item.size.y,
-                }, repositioned)) {
+                }, this.takenMap(repositioned))) {
                     if (newX === limit) {
                         newY++
                         newX = 1

@@ -18,7 +18,7 @@ modern-block-body {
     z-index: 2;
     position: absolute;
     background: var(--color-card-background);
-    font-size: 2.8vmin;
+    font-size:  var(--size-card-font);
     transition: all .2s;
 }
 
@@ -50,4 +50,10 @@ modern-block-body {
     min-height: 100%;
     overflow-x: auto;
     width: 100%;
+}
+
+.modern-mini-title {
+    margin: 5% 5% 10% 5%;
+    font-family: var(--font-accent);
+    font-size: 1.3em;
 }
