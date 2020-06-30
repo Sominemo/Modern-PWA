@@ -2,6 +2,8 @@
     --size-nav-width: 50px;
     --size-icon-default: 24px;
     --size-text-default: 16px;
-    --size-card-side: 23vmin;
+    --size-card-side-default: 23vmin;
+    --size-card-side: var(--size-card-side-default);
     --size-card-font: 2.8vmin;
+    --size-block-gap: 3vmin;
 }
