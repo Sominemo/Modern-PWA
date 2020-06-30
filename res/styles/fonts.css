@@ -7,7 +7,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url(../icons/outline/font.ttf) format('truetype');
+  src: url(../icons/outline/font.woff2) format('woff2');
 }
 
 :root {
