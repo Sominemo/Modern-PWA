@@ -6,8 +6,13 @@ import { Scaffold } from "../buildBlock"
 
 function toMenuItem(o, close = false, ind) {
     const {
-        type = "item", icon = null, title, handler = () => { }, disabled = false, unshown = false, style = {},
+        type = "item", icon = null, title, handler = () => { }, style = {},
     } = o
+
+    let { disabled = false, unshown = false } = o
+
+    disabled = (typeof disabled === "function" ? disabled() : disabled)
+    unshown = (typeof unshown === "function" ? unshown() : unshown)
 
     if (unshown) return false
 
@@ -15,6 +20,7 @@ function toMenuItem(o, close = false, ind) {
 
     if (type === "item") {
         const proxyHandler = () => {
+            if (disabled || unshown) return
             handler()
             if (close) close()
             else ContextMenuElement.closeAll()
@@ -64,7 +70,6 @@ function toMenuItem(o, close = false, ind) {
 
     return false
 }
-
 
 function ContextMenu({
     content = [], coords = null, style = {}, mode = "context", event = false, noSelfControl = false,

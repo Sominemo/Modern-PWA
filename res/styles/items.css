@@ -793,6 +793,11 @@ context-menu-item {
     transition: background .2s;
 }
 
+context-menu-item[disabled] {
+    opacity: .5;
+    pointer-events: none;
+}
+
 context-menu-element {
     white-space: nowrap;
 }
