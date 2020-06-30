@@ -183,6 +183,7 @@ md-button.modern {
     border-radius: 2em;
     box-shadow: none;
     margin: 0;
+    padding: .6em .9em;
     --button-main-color: var(--color-9);
     --color-button-background: rgba(var(--button-main-color), .15);
     --color-button-text: rgb(var(--button-main-color));

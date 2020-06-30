@@ -4,7 +4,7 @@
         --size-nav-height: var(--size-nav-width);
         --flag-scaffold-mode: mobile;
         --size-card-side: 28vmin;
-        --size-card-font: 3.5vmin;
+        --size-card-font: 3.35vmin;
     }
     @media all and (display-mode: standalone) {
         body {
