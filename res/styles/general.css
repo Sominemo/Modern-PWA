@@ -314,7 +314,7 @@ main {
     left: 0;
     right: 0;
     z-index: 1;
-    will-change: transform, opacity, scroll-position;
+    will-change: opacity, scroll-position;
 }
 
 .s--wm-aoi {
